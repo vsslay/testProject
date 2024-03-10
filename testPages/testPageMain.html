@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Web Page</title>
+    <script>
+
+    function checkboxClicked(element) {
+      const value = element.value;
+      const checkedCheckboxes = document.querySelectorAll('input[name="checkbox"]:checked');
+      const checkedValues = [];
+      checkedCheckboxes.forEach((checkbox) => {
+        checkedValues.push(checkbox.value);
+      });
+
+      document.getElementById("options-selected").innerHTML = `Selected options: ${checkedValues.join(', ')}`;
+    }
+
+    function selectChanged(dropdown) {
+      const value = dropdown.value;
+      document.getElementById("dropdown-option-selected").innerHTML = `Selected option: ${value}`;
+    }
+
+    function paragraphMouseOver(paragraph) {
+      paragraph.style.color = "red";
+    }
+
+    function paragraphMouseOut(paragraph) {
+      paragraph.style.color = "rgba(106, 99, 163, 1)";
+      paragraph.style.transition = "color 0.5s linear";
+    }
+
+    function headingMouseOver(heading) {
+      heading.style.backgroundColor = "indigo";
+    }
+
+    function headingMouseOut(heading) {
+       heading.style.transition = "background-color 0.5s linear";
+       heading.style.backgroundColor = "rgba(255, 255, 255, 0)";
+
+    }
+
+    function formSubmitted(submit) {
+      alert("Form submitted");
+    }
+
+    function radioButtonClicked(radio) {
+      const value = radio.value;
+      document.getElementById("radio-option-selected").innerHTML = `Selected option: ${value}`;
+    }
+
+    </script>
+</head>
+
+<body style="background-image: url('images/image.jpg'); background-repeat: no-repeat;">
+
+<div id="title" onmouseover="headingMouseOver(this)" onmouseout="headingMouseOut(this)">
+    <h1>Main page</h1>
+</div>
+
+<div id="radio" onmouseover="headingMouseOver(this)" onmouseout="headingMouseOut(this)">
+    <h2>Radio Buttons</h2>
+    <input type="radio" id="radio1" name="radio" value="1" onclick="radioButtonClicked(this)">
+    <label for="radio1">Option 1</label>
+    <input type="radio" id="radio2" name="radio" value="2" onclick="radioButtonClicked(this)">
+    <label for="radio2">Option 2</label>
+    <input type="radio" id="radio3" name="radio" value="3" onclick="radioButtonClicked(this)">
+    <label for="radio3">Option 3</label>
+    <div id="radio-option-selected"></div>
+</div>
+
+<div id="checkbox" onmouseover="headingMouseOver(this)" onmouseout="headingMouseOut(this)">
+    <h2>Checkboxes</h2>
+    <input type="checkbox" id="checkbox1" name="checkbox" value="1" onclick="checkboxClicked(this)">
+    <label for="checkbox1">Option 1</label>
+    <input type="checkbox" id="checkbox2" name="checkbox" value="2" onclick="checkboxClicked(this)">
+    <label for="checkbox2">Option 2</label>
+    <input type="checkbox" id="checkbox3" name="checkbox" value="3" onclick="checkboxClicked(this)">
+    <label for="checkbox3">Option 3</label>
+    <div id="options-selected"></div>
+</div>
+
+<form onsubmit="
+  formSubmitted(this)
+  const inputs = document.querySelectorAll('input[type=text]');
+  const table = document.createElement('table');
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>User data</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  `;
+
+  const tbody = table.querySelector('tbody');
+
+  for (let i = 0; i < inputs.length; i++) {
+    const input = inputs[i];
+    const key = input.placeholder.toLowerCase().replace('enter your ', '');
+    const value = input.value;
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${key}</td>
+      <td>${value}</td>
+    `;
+
+    tbody.appendChild(row);
+  }
+
+  document.body.appendChild(table);
+
+  return false;
+">
+    <div id="input" onmouseover="headingMouseOver(this)" onmouseout="headingMouseOut(this)">
+        <h3>Input Fields</h3>
+        <input type="text" id="text1" name="text" placeholder="Enter your name" onfocus="textFieldFocused(this)"
+               onchange="textFieldChanged(this)">
+        <input type="text" id="text2" name="text" placeholder="Enter your email" onfocus="textFieldFocused(this)"
+               onchange="textFieldChanged(this)">
+        <input type="text" id="text3" name="text" placeholder="Enter your phone" onfocus="textFieldFocused(this)"
+               onchange="textFieldChanged(this)">
+
+        <div>
+            <form >
+                <input type="submit" value="Submit" id="submit">
+            </form>
+        </div>
+    </div>
+</form>
+
+<div id="dropdown" onmouseover="headingMouseOver(this)" onmouseout="headingMouseOut(this)">
+    <h3>Dropdown List</h3>
+    <select id="select-dropdown" name="select" onchange="selectChanged(this)">
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+    <div id="dropdown-option-selected"></div>
+</div>
+
+<div id="links" onmouseover="headingMouseOver(this)" onmouseout="headingMouseOut(this)">
+    <h5>Links</h5>
+    <a onmouseover="paragraphMouseOver(this)" onmouseout="paragraphMouseOut(this)" href="link1.html" onclick="linkClicked(this)">Link to page 1</a>
+    <a onmouseover="paragraphMouseOver(this)" onmouseout="paragraphMouseOut(this)" href="LINK1.html" onclick="linkClicked(this)">Link to page 1 uppercase</a>
+    <a onmouseover="paragraphMouseOver(this)" onmouseout="paragraphMouseOut(this)" href="link2.html" onclick="linkClicked(this)">Link to page 2</a>
+    <a onmouseover="paragraphMouseOver(this)" onmouseout="paragraphMouseOut(this)" href="LINK2.html" onclick="linkClicked(this)">Link to page 2 uppercase</a>
+    <style>
+        a {
+          display: block;
+        }
+    </style>
+</div>
+</body>
+</html>
